@@ -1,18 +1,18 @@
 import express from "express";
 import jwt from "jsonwebtoken";
-import { JWT_SECRET } from "./config";
+import { JWT_SECRET } from "@repo/backend-common/config";
+import { middleware } from "./middleware";
 
 const app = express()
 
 app.post("/signup", (req, res) => {
-    const {email, password} = req.body
-
+    
     // check if user exists or not
     // if yes tell user exists
     // if no take email and password from user and add it to db
     // hash the password before storing
 
-    res.json({message: "User created"})
+    res.json({userId: "123"})
 })
 
 app.post("/signin", (req, res) => {
@@ -27,7 +27,7 @@ app.post("/signin", (req, res) => {
 
 })
 
-app.post("/create-room", (req, res) => {
+app.post("/create-room", middleware ,(req, res) => {
 
 })
 

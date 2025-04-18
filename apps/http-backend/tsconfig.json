@@ -3,6 +3,8 @@
   "compilerOptions": {
     "rootDir": "./src",
     "outDir": "./dist",
-    "esModuleInterop": true
-  }
+    "esModuleInterop": true,
+    "typeRoots": ["./src", "./node_modules/@types"]
+  },
+  "include": ["src/**/*.ts", "src/**/*.d.ts"]
 }
