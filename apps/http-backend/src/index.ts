@@ -2,33 +2,55 @@ import express from "express";
 import jwt from "jsonwebtoken";
 import { JWT_SECRET } from "@repo/backend-common/config";
 import { middleware } from "./middleware";
+import { CreateUserSchema, SignInSchema, CreateRoomSchema } from "@repo/common/types";
 
-const app = express()
+const app = express();
 
 app.post("/signup", (req, res) => {
-    
-    // check if user exists or not
-    // if yes tell user exists
-    // if no take email and password from user and add it to db
-    // hash the password before storing
 
-    res.json({userId: "123"})
-})
+    const data = CreateUserSchema.safeParse(req.body)
+    if(!data.success) {
+        res.json({
+            message: "Incorrect Inputs"
+        })
+        return
+    }
+
+    res.json({ userId: "123" });
+});
 
 app.post("/signin", (req, res) => {
-    const {email, password} = req.body
+    const data = SignInSchema.safeParse(req.body)
+    if(!data.success) {
+        res.json({
+            message: "Incorrect Inputs"
+        })
+        return
+    }
 
-    const userId = 1
-    const token = jwt.sign({
-        userId
-    }, JWT_SECRET)
+  const userId = 1;
+  const token = jwt.sign(
+    {
+      userId,
+    },
+    JWT_SECRET
+  );
 
-    res.json(token)
+  res.json(token);
+});
 
-})
+app.post("/create-room", middleware, (req, res) => {
+    const data = CreateRoomSchema.safeParse(req.body)
+    if(!data.success) {
+        res.json({
+            message: "Incorrect Inputs"
+        })
+        return
+    }
 
-app.post("/create-room", middleware ,(req, res) => {
+    res.json({
+        roomId: 123
+    })
+});
 
-})
-
-app.listen(3001)
+app.listen(3001);
